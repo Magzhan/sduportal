@@ -55,7 +55,7 @@ function searchStudent(){
 	birthdate = $("#student_birthdate").val();
 	email = $("#student_email").val();
 	
-	$.get("index.php?r=departmenthead/students/displaystudents",function(data){ $("#table_panel").html(data);});
+	$.get("index.php?r=departmenthead/students/displaystudents",{name:name,surname:surname,course:course,faculty:faculty,department:department,group:group,birthdate:birthdate,email:email},function(data){ $("#table_panel").html(data);});
 	
 	//,{name:name,surname:"s",course:"c",faculty:"f",department:"d",group:"g",birthdate:"b",email:"e"}
 }

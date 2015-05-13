@@ -1,9 +1,12 @@
+<?php
+use yii\grid\GridView;
+?>
 <div class="user-data-index">
 
     
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        //'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 			
