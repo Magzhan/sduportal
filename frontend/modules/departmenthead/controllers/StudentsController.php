@@ -10,6 +10,8 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\db\Query;
 use yii\data\ActiveDataProvider;
+use backend\models\User;
+use backend\models\AuthAssignment;
 
 /**
  * StudentsController implements the CRUD actions for UserData model.
@@ -38,7 +40,7 @@ class StudentsController extends Controller
     public function actionIndex()
     {		
         
-
+		
         return $this->render('index');
     }
 
@@ -158,5 +160,21 @@ class StudentsController extends Controller
 			'dataProvider' => $dataProvider,
 		]);
 		//$name = NULL,$surname = NULL,$course = NULL,$faculty = NULL,$department = NULL,$group = NULL,$birthdate = NULL,$email = NULL
+	}
+	
+	public function actionAddstudent(){
+			$model = new User;
+			$model1 = new AuthAssignment;
+			
+			if($model->load(Yii::$app->request->post())){
+					$model->created_at = date('Y-m-d H:i:s', time());
+					$pass = Yii::$app->security->generateRandomString();
+					$model->password_hash = Yii::$app->security->generatePasswordHash($pass);
+					$model->auth_key = Yii::$app->security->generateRandomString();
+					$model->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
+				}
+			return $this->render('addstudent',[
+				'model' => $model,
+			]);
 	}
 }

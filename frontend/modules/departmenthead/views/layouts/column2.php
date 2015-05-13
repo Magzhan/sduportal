@@ -16,7 +16,7 @@ use yii\helpers\Url;
                 <li onClick="studentMenu()"><?php echo Html::a('students', '#'); ?></li>
                 <ul id="students_submenu" hidden="true">
                 	<li><?php echo Html::a('All Students', Url::toRoute('students/index')); ?></li>
-                	<li><?php echo Html::a('Add Student', Url::toRoute('/')); ?></li>
+                	<li><?php echo Html::a('Add Student', Url::toRoute('students/addstudent')); ?></li>
                     <li><?php echo Html::a('Add Group', Url::toRoute('/')); ?></li>
                 </ul>
             </ul>

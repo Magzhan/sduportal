@@ -59,4 +59,8 @@ function searchStudent(){
 	
 	//,{name:name,surname:"s",course:"c",faculty:"f",department:"d",group:"g",birthdate:"b",email:"e"}
 }
+window.onload = function(){
+		$.get("index.php?r=departmenthead/students/displaystudents",function(data){ $("#table_panel").html(data);});
+	};
+
 </script>
