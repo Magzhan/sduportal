@@ -20,3 +20,6 @@ use yii\widgets\ActiveForm;
     <?php ActiveForm::end(); ?>
 	<?php echo Yii::$app->security->generateRandomString(); ?>
 </div><!-- addstudent -->
+<script>
+
+</script>

@@ -139,14 +139,14 @@ class StudentsController extends Controller
 		}
 		//echo $searchSql; die();
 		$query = new Query;
-		$query->select(['user.username AS login','user.email AS email','user_data.name AS name','user_data.surname AS surname','user_data.gender AS gender','user_data.course AS course','faculty.name AS faculty','department.name AS department','group.name AS group','user_data.entry_year AS entry_year','user_data.education_level AS education_level','user_data.payment_type AS payment_type','user_data.birthdate AS birthdate','user_data.mobile1 AS mobile1','user_data.mobile2 AS mobile2','user_data.email2 AS email2','user_data.address AS address','user_data.nationality AS nationality','user_data.document_type AS document_type','user_data.document_number AS document_number','user_data.document_issue_date AS document_issue_data','user_data.document_expire_date AS document_expire_date','user_data.document_issue_organization AS document_issue_organization','education_history.educational_organization AS educational_organization','education_history.educated_between AS educated_between','education_history.address AS education_address','personal_information.name AS relative_name','personal_information.surname AS relative_surname','personal_information.gender AS relative_gender','personal_information.relationship AS relative_relationship','personal_information.workplace AS relative_workplace','personal_information.mobile AS relative_mobile','personal_information.phone AS relative_phone','personal_information.address AS relative_address','personal_information.email AS relative_email'])
+		$query->select(['user.username AS login','user.email AS email','user_data.name AS name','user_data.surname AS surname','user_data.gender AS gender','user_data.course AS course','faculty.name AS faculty','department.name AS department','group.name AS group','user_data.entry_year AS entry_year','user_data.education_level AS education_level','user_data.payment_type AS payment_type','user_data.birthdate AS birthdate','user_data.mobile1 AS mobile1','user_data.mobile2 AS mobile2','user_data.email2 AS email2','user_data.address AS address','user_data.nationality AS nationality','user_data.document_type AS document_type','user_data.document_number AS document_number','user_data.document_issue_date AS document_issue_data','user_data.document_expire_date AS document_expire_date','user_data.document_issue_organization AS document_issue_organization'])
 		->from('user_data')
 		->leftJoin('user','user.id = user_data.user_id')
 		->leftJoin('faculty','faculty.id = user_data.faculty_id')
 		->leftJoin('department','department.id = user_data.department_id')
 		->leftJoin('group','group.id = user_data.group_id')
-		->leftJoin('education_history','education_history.user_id = user_data.user_id')
-		->leftJoin('personal_information','personal_information.user_id = user_data.user_id')
+		//->leftJoin('education_history','education_history.user_id = user_data.user_id')
+		//->leftJoin('personal_information','personal_information.user_id = user_data.user_id')
 		->leftJoin('auth_assignment','auth_assignment.user_id = user_data.user_id')
 		->where('auth_assignment.item_name = "student"'.$searchSql)
 		->all();
@@ -170,8 +170,21 @@ class StudentsController extends Controller
 					$model->created_at = date('Y-m-d H:i:s', time());
 					$pass = Yii::$app->security->generateRandomString();
 					$model->password_hash = Yii::$app->security->generatePasswordHash($pass);
+					$model->displayname = $model->username;
 					$model->auth_key = Yii::$app->security->generateRandomString();
 					$model->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
+					$model1->item_name = "student";
+					if($model->save()){
+						$model1->user_id = $model->id;
+						$model1->save();
+					}
+					\Yii::$app->mailer->compose()
+					->setFrom([\Yii::$app->params['adminEmail'] => 'Registration'])
+					->setTo($model->email)
+					->setSubject('Register')
+					->setTextBody('Your login:'.$model->username.' Your password:'.$pass)
+					->send();
+					$this->redirect(['index']);
 				}
 			return $this->render('addstudent',[
 				'model' => $model,

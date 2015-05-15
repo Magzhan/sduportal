@@ -32,6 +32,7 @@ $(window).scroll(function(){
 		$(".list-group").stop().animate({"marginTop": ($(window).scrollTop() + 5) + "px"}, "fast");
 	});
 var menu_hidden = true;
+
 function studentMenu(){
 	if(menu_hidden){
 		$("#students_submenu").show();
@@ -39,5 +40,9 @@ function studentMenu(){
 		$("#students_submenu").hide();
 	}
 	menu_hidden = !menu_hidden;	
+}
+
+function addStudentModal(){
+	
 }
 </script>

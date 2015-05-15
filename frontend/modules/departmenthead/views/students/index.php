@@ -8,7 +8,7 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Students';
-$this->params['breadcrumbs'][] = $this->title;
+//$this->params['breadcrumbs'][] = $this->title;
 ?>
 <style>
 	.search_table td{
@@ -35,6 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </table>
 </div>
 <div id="table_panel"></div>
+
 <script>
 var name = "";
 var surname = "";
