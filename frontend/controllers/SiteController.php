@@ -12,6 +12,7 @@ use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use common\models\UserData;
 
 /**
  * Site controller
@@ -78,6 +79,12 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+			if(Yii::$app->user->can('student')){
+					$model1 = UserData::find()->where(['user_id' => Yii::$app->user->identity->id])->one();
+					if($model1 === null){
+						return $this->redirect(['student/default/index']);
+					}
+				}
             return $this->goBack();
         } else {
             return $this->render('login', [

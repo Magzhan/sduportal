@@ -9,12 +9,10 @@ use yii\bootstrap\Modal;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Announcements';
-$this->params['breadcrumbs'][] = $this->title;
+//$this->title = 'Announcements';
+//$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="announcement-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::button('Create Announcement', ['class' => 'btn btn-success','onclick' => 'showCreateModal()']) ?>
@@ -60,7 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				'buttons' => [
 					'update' => function($url,$model){
 							$url = Url::to(['/advisor/announcement/update','id' => $model['id']]);
-							return Html::button('<span class="glyphicon glyphicon-edit"></span>', ['class' => '', 'onclick' => 'updateAnnouncement('.$model['id'].')']);
+							return Html::button('<span class="glyphicon glyphicon-pencil"></span>', ['class' => '', 'onclick' => 'updateAnnouncement('.$model['id'].')']);
 							/*return Html::a(
 								<span class="glyphicon glyphicon-edit"></span>',
 								"#",

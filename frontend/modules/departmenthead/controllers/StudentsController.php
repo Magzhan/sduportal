@@ -179,7 +179,7 @@ class StudentsController extends Controller
 						$model1->save();
 					}
 					\Yii::$app->mailer->compose()
-					->setFrom([\Yii::$app->params['adminEmail'] => 'Registration'])
+					->setFrom('admin@sduportal.com')
 					->setTo($model->email)
 					->setSubject('Register')
 					->setTextBody('Your login:'.$model->username.' Your password:'.$pass)
