@@ -190,4 +190,8 @@ class StudentsController extends Controller
 				'model' => $model,
 			]);
 	}
+	
+	public function actionAddstudentgroups(){
+			return $this->render('addstudentgroups',[]);
+	}
 }
