@@ -4,7 +4,7 @@ namespace frontend\modules\departmenthead\controllers;
 
 use Yii;
 use common\models\UserData;
-use frontend\modules\departmenthead\models\StudentsSearch;
+use frontend\modules\departmenthead\models\StudentList;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -12,6 +12,8 @@ use yii\db\Query;
 use yii\data\ActiveDataProvider;
 use backend\models\User;
 use backend\models\AuthAssignment;
+use yii\web\UploadedFile;
+use yii\data\ArrayDataProvider;
 
 /**
  * StudentsController implements the CRUD actions for UserData model.
@@ -192,6 +194,29 @@ class StudentsController extends Controller
 	}
 	
 	public function actionAddstudentgroups(){
-			return $this->render('addstudentgroups',[]);
+			$model = new StudentList;
+			
+			if(Yii::$app->request->isPost){
+				$model->file = UploadedFile::getInstance($model,'file');
+				
+				if($model->file && $model->validate()){
+					$model->file->saveAs('C:/xampp/htdocs/sduportal/frontend/modules/departmenthead/uploads/' . $model->file->baseName . '.' . $model->file->extension);
+				}
+			}
+			return $this->render('addstudentgroups',[
+				'model' => $model,
+			]);
+	}
+	
+	public function actionLoadstudentlist(){
+			$objPHPExcel = \PHPExcel_IOFactory::load('C:\xampp\htdocs\sduportal\frontend\modules\departmenthead\uploads\test.xlsx');
+			$sheetData = $objPHPExcel->getActiveSheet()->toArray(null, true, true, true);
+			$provider = new ArrayDataProvider([
+				'allModels' => $sheetData,
+			]);
+			
+			return $this->renderAjax('_list',[
+				'provider' => $provider,
+			]);
 	}
 }

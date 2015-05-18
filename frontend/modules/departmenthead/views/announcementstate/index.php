@@ -9,8 +9,8 @@ use yii\bootstrap\Modal;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Announcement States';
-$this->params['breadcrumbs'][] = $this->title;
+//$this->title = 'Announcement States';
+//$this->params['breadcrumbs'][] = $this->title;
 ?>
 <?php
 	$this->registerJs('$(function(){
@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
  ?>
 <div class="announcement-state-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    
     <p>
     	<?php
 			Modal::begin([

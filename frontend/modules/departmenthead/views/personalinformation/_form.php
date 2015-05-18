@@ -12,6 +12,8 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin([
 		'id' => 'relativesInformationForm',
+		'ajaxDataType' => 'json',
+		'ajaxParam' => 'ajax',
 	]); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => 255]) ?>

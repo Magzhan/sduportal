@@ -13,7 +13,7 @@ use yii\db\Query;
 /**
  * AnnouncementStateController implements the CRUD actions for AnnouncementState model.
  */
-class AnnouncementStateController extends Controller
+class AnnouncementstateController extends Controller
 {
 	
 	public $layout = 'column2';
